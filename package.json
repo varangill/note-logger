@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "live-server public/",
+    "start": "node server/server.js",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env prod",
     "dev-server": "webpack-dev-server",
@@ -23,6 +24,7 @@
     "enzyme": "3.0.0",
     "enzyme-adapter-react-16": "1.0.0",
     "enzyme-to-json": "3.0.1",
+    "express": "4.15.4",
     "extract-text-webpack-plugin": "3.0.0",
     "firebase": "4.2.0",
     "jest": "20.0.4",
