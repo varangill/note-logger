@@ -11,8 +11,8 @@ exports[`should render EntryListItem correctly 1`] = `
     </h3>
   </Link>
   <p>
-    0
-     - 
+    Dec 31st, 1969
+    -
   </p>
 </div>
 `;

@@ -7,7 +7,11 @@ const EntryListItem = ({ id, description, tag, createdAt }) => (
     <Link to={`/edit/${id}`}>
       <h3>{description}</h3>
     </Link>
-    <p>{createdAt} - {tag}</p>
+    <p>
+      {moment(createdAt).format('MMM Do, YYYY')}
+      - 
+      {tag}
+    </p>
   </div>
 );
 
