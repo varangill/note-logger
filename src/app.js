@@ -12,7 +12,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import './firebase/firebase';
 
 const store = configureStore();
-//ALPHABET MEANS ALPHABETICAL NOW
+
 store.dispatch(addEntry({ description: 'Water bill', tag: "task", createdAt: 1598048818594 }));
 store.dispatch(addEntry({ description: 'Gas bill', tag: "goal", createdAt: 1598048818594 }));
 store.dispatch(addEntry({ description: 'Rent', tag: "goal", createdAt: 1598048818594 }));
