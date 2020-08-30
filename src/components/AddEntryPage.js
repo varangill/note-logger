@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import EntryForm from './EntryForm';
-import { addEntry } from '../actions/entries';
+import { initAddEntry } from '../actions/entries';
 
 export class AddEntryPage extends React.Component {
   onSubmit = (entry) => {
-    this.props.addEntry(entry);
+    this.props.initAddEntry(entry);
     this.props.history.push('/');
   };
 
@@ -22,7 +22,7 @@ export class AddEntryPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addEntry: (entry) => dispatch(addEntry(entry))
+  initAddEntry: (entry) => dispatch(initAddEntry(entry))
 });
 
 export default connect(undefined, mapDispatchToProps)(AddEntryPage);

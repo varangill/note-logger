@@ -6,6 +6,7 @@ test('should filter by text value', () => {
   const filters = {
     text: 'e',
     sortBy: 'date',
+    tag: 'all',
     startDate: undefined,
     endDate: undefined
   };
@@ -17,6 +18,7 @@ test('should filter by startDate', () => {
   const filters = {
     text: '',
     sortBy: 'date',
+    tag: 'all',
     startDate: moment(0),
     endDate: undefined
   };
@@ -28,6 +30,7 @@ test('should filter by endDate', () => {
   const filters = {
     text: '',
     sortBy: 'date',
+    tag: 'all',
     startDate: undefined,
     endDate: moment(0).add(2, 'days')
   };
@@ -39,6 +42,7 @@ test('should sort by date', () => {
   const filters = {
     text: '',
     sortBy: 'date',
+    tag: 'all',
     startDate: undefined,
     endDate: undefined
   };
@@ -50,6 +54,7 @@ test('should sort by alphabet', () => {
   const filters = {
     text: '',
     sortBy: 'alphabet',
+    tag: 'all',
     startDate: undefined,
     endDate: undefined
   };

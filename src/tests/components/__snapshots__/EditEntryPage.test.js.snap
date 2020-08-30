@@ -9,6 +9,7 @@ exports[`should render EditEntryPage 1`] = `
         "description": "Credit Card",
         "id": "3",
         "note": "",
+        "tag": "task",
       }
     }
     onSubmit={[Function]}

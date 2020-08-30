@@ -16,6 +16,7 @@ exports[`should render EntryList with entries 1`] = `
     id="1"
     key="1"
     note=""
+    tag="task"
   />
   <EntryListItem
     createdAt={-345600000}
@@ -23,6 +24,7 @@ exports[`should render EntryList with entries 1`] = `
     id="2"
     key="2"
     note=""
+    tag="task"
   />
   <EntryListItem
     createdAt={345600000}
@@ -30,6 +32,7 @@ exports[`should render EntryList with entries 1`] = `
     id="3"
     key="3"
     note=""
+    tag="task"
   />
 </div>
 `;

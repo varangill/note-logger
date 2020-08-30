@@ -13,6 +13,7 @@ exports[`should render EntryListItem correctly 1`] = `
   <p>
     Dec 31st, 1969
     -
+    task
   </p>
 </div>
 `;

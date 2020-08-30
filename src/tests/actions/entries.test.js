@@ -1,4 +1,10 @@
-import { addEntry, editEntry, removeEntry } from '../../actions/entries';
+import { addEntry, initAddEntry, editEntry, removeEntry } from '../../actions/entries';
+import entryData from '../fixtures/entries';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import database from '../../firebase/firebase.js'
+
+const createMockStore = configureMockStore([thunk]);
 
 test('should setup remove entry action object', () => {
   const action = removeEntry({ id: '123abc' });
@@ -20,32 +26,72 @@ test('should setup edit entry action object', () => {
 });
 
 test('should setup add entry action object with provided values', () => {
-  const entryData = {
-    description: 'Rent',
-    createdAt: 1000,
-    tag: 'task',
-    note: 'This was last months rent'
-  };
-  const action = addEntry(entryData);
+  const action = addEntry(entryData[2]);
   expect(action).toEqual({
     type: 'ADD_ENTRY',
-    entry: {
-      ...entryData,
-      id: expect.any(String)
-    }
+    entry: entryData[2]
   });
 });
 
-test('should setup add entry action object with default values', () => {
-  const action = addEntry();
-  expect(action).toEqual({
-    type: 'ADD_ENTRY',
-    entry: {
-      id: expect.any(String),
-      description: '',
-      note: '',
-      createdAt: 0,
-      tag: 'task'
-    }
-  });
+
+test('should add manual entry to database and store', (done) => {
+  const store = createMockStore({});
+  const entryData2 = {
+    description: 'Mouse',
+    tag: 'task',
+    note: 'This one is better',
+    createdAt: 1000
+  };
+  store.dispatch(initAddEntry(entryData2)).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'ADD_ENTRY',
+      entry: {
+        id: expect.any(String),
+        ... entryData2
+      }
+    });
+    return database.ref(`entries/${actions[0].entry.id}`).once('value');
+  }).then((snapshot) => {
+      expect(snapshot.val()).toEqual(entryData2);
+      done();
+    });
 });
+
+test('should add default entry to database+store', () => {
+  const store = createMockStore({});
+  const defaultEntryData = {
+    description: '',
+    tag: 'task',
+    note: '',
+    createdAt: 0
+  };
+  store.dispatch(initAddEntry()).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'ADD_ENTRY',
+      entry: {
+        id: expect.any(String),
+        ... defaultEntryData
+      }
+    });
+    return database.ref(`entries/${actions[0].entry.id}`).once('value');
+  }).then((snapshot) => {
+      expect(snapshot.val()).toEqual(defaultEntryData);
+      done();
+    });
+});
+
+// test('should setup add entry action object with default values', () => {
+//   const action = addEntry();
+//   expect(action).toEqual({
+//     type: 'ADD_ENTRY',
+//     entry: {
+//       id: expect.any(String),
+//       description: '',
+//       note: '',
+//       createdAt: 0,
+//       tag: 'task'
+//     }
+//   });
+// });

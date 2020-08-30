@@ -1,22 +1,29 @@
 import uuid from 'uuid';
+import database from '../firebase/firebase.js';
+
+export const initAddEntry = (entryData = {}) => {
+  return (dispatch) => {
+    const {
+      description = '', //these are default values for if nothing is passed in
+      note = '',
+      tag = "task",
+      createdAt = 0
+    } = entryData;
+    const entryToAdd = {description, note, tag, createdAt}
+
+    return database.ref('entries').push(entryToAdd).then((ref) => {
+      dispatch(addEntry({
+        id: ref.key,
+        ...entryToAdd
+      }));
+    });
+  };
+};
 
 // ADD_ENTRY
-export const addEntry = (
-  {
-    description = '', //these are default values for if nothing is passed in
-    note = '',
-    tag = "task",
-    createdAt = 0
-  } = {}
-) => ({ //addEntry returns this object
+export const addEntry = (entry) => ({ 
   type: 'ADD_ENTRY',
-  entry: { //sets the entry equal to the variables from the inputs
-    id: uuid(),
-    description,
-    note,
-    tag,
-    createdAt
-  }
+  entry
 });
 
 // REMOVE_ENTRY

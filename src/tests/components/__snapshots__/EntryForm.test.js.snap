@@ -125,6 +125,7 @@ exports[`should render EntryForm correctly with entry data 1`] = `
     />
     <select
       onChange={[Function]}
+      value="task"
     >
       <option
         value="task"

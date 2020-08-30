@@ -13,11 +13,8 @@ import './firebase/firebase';
 
 const store = configureStore();
 
-store.dispatch(addEntry({ description: 'Water bill', tag: "task", createdAt: 1598048818594 }));
-store.dispatch(addEntry({ description: 'Gas bill', tag: "goal", createdAt: 1598048818594 }));
-store.dispatch(addEntry({ description: 'Rent', tag: "goal", createdAt: 1598048818594 }));
-store.dispatch(addEntry({ description: 'Ab', tag: "goal", createdAt: 1598048818594 }));
-store.dispatch(addEntry({ description: 'Aa', tag: "goal", createdAt: 1598048818594 }));
+// store.dispatch(addEntry({ description: 'Water bill', tag: "task", createdAt: 1598048818594 }));
+// store.dispatch(addEntry({ description: 'Aa', tag: "goal", createdAt: 1598048818594 }));
 
 const state = store.getState();
 const visibleEntries = getVisibleEntries(state.entries, state.filters);
