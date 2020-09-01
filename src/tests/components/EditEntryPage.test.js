@@ -3,16 +3,16 @@ import { shallow } from 'enzyme';
 import entries from '../fixtures/entries';
 import { EditEntryPage } from '../../components/EditEntryPage';
 
-let editEntry, removeEntry, history, wrapper;
+let editEntry, initRemoveEntry, history, wrapper;
 
 beforeEach(() => {
   editEntry = jest.fn();
-  removeEntry = jest.fn();
+  initRemoveEntry = jest.fn();
   history = { push: jest.fn() };
   wrapper = shallow(
     <EditEntryPage
       editEntry={editEntry}
-      removeEntry={removeEntry}
+      initRemoveEntry={initRemoveEntry}
       history={history}
       entry={entries[2]}
     />
@@ -29,10 +29,10 @@ test('should handle editEntry', () => {
   expect(editEntry).toHaveBeenLastCalledWith(entries[2].id, entries[2]);
 });
 
-test('should handle removeEntry', () => {
+test('should handle initRemoveEntry', () => {
   wrapper.find('button').simulate('click');
   expect(history.push).toHaveBeenLastCalledWith('/');
-  expect(removeEntry).toHaveBeenLastCalledWith({
+  expect(initRemoveEntry).toHaveBeenLastCalledWith({
     id: entries[2].id
   });
 });

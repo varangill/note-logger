@@ -1,4 +1,4 @@
-import { addEntry, initAddEntry, startSetEntries, editEntry, removeEntry, setEntries } from '../../actions/entries';
+import { addEntry, initAddEntry, startSetEntries, editEntry, removeEntry, setEntries, initRemoveEntry } from '../../actions/entries';
 import entryData from '../fixtures/entries';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -21,6 +21,22 @@ test('should setup remove entry action object', () => {
   expect(action).toEqual({
     type: 'REMOVE_ENTRY',
     id: '123abc'
+  });
+});
+
+test('should remove entry from firebase', (done) => {
+  const store = createMockStore({});
+  const id = entries[2].id;
+  store.dispatch(initRemoveEntry({ id })).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'REMOVE_ENTRY',
+      id
+    });
+    return database.ref(`entries/${id}`).once('value');
+  }).then((snapshot) => {
+    expect(snapshot.val()).toBeFalsy();
+    done();
   });
 });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import EntryForm from './EntryForm';
-import { editEntry, removeEntry } from '../actions/entries';
+import { editEntry, initRemoveEntry } from '../actions/entries';
 
 export class EditEntryPage extends React.Component {
   
@@ -12,7 +12,7 @@ export class EditEntryPage extends React.Component {
   };
 
   onDelete = () => {
-    this.props.removeEntry({ id: this.props.entry.id });
+    this.props.initRemoveEntry({ id: this.props.entry.id });
     this.props.history.push('/');
   };
 
@@ -37,7 +37,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => ({
   editEntry: (id, entry) => dispatch(editEntry(id, entry)),
-  removeEntry: (data) => dispatch(removeEntry(data))
+  initRemoveEntry: (data) => dispatch(initRemoveEntry(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditEntryPage);

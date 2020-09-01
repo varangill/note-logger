@@ -32,6 +32,14 @@ export const removeEntry = ({ id } = {}) => ({
   id
 });
 
+export const initRemoveEntry = ({ id } = {}) => {
+  return (dispatch) => {
+    return database.ref(`entries/${id}`).remove().then(() => {
+      dispatch(removeEntry({id}));
+    });
+  };
+};
+
 // EDIT_ENTRY
 export const editEntry = (id, updates) => ({
   type: 'EDIT_ENTRY',
