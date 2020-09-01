@@ -64,3 +64,12 @@ test('should not edit an entry if id not found', () => {
   const state = entriesReducer(entries, action);
   expect(state).toEqual(entries);
 });
+
+test('should set entries', () => {
+  const action = {
+    type: 'SET_ENTRIES',
+    entries: [entries[2]]
+  };
+  const state = entriesReducer(entries, action);
+  expect(state).toEqual([entries[2]]);
+});

@@ -38,3 +38,26 @@ export const editEntry = (id, updates) => ({
   id,
   updates
 });
+
+// SET_ENTRIES
+export const setEntries = (entries) => ({
+  type: 'SET_ENTRIES',
+  entries
+})
+
+export const startSetEntries = () => {
+  return (dispatch) => {
+    return database.ref('entries').once('value').then((snapshot) => {
+      const entries = [];
+
+      snapshot.forEach((childSnapshot) => {
+        entries.push({
+          id: childSnapshot.key,
+          ...childSnapshot.val()
+        });
+      });
+
+      dispatch(setEntries(entries));
+    });
+  };
+};

@@ -1,8 +1,18 @@
-import { addEntry, initAddEntry, editEntry, removeEntry } from '../../actions/entries';
+import { addEntry, initAddEntry, startSetEntries, editEntry, removeEntry, setEntries } from '../../actions/entries';
 import entryData from '../fixtures/entries';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import database from '../../firebase/firebase.js'
+import entries from '../fixtures/entries';
+
+
+beforeEach((done) => { //generating test data arrays inside Firebase database
+  const entriesData = {};
+  entries.forEach(({id, description, note, tag, createdAt}) => {
+    entriesData[id] = {description, note, tag, createdAt}
+  });
+  database.ref('entries').set(entriesData).then(() => done());
+});
 
 const createMockStore = configureMockStore([thunk]);
 
@@ -58,6 +68,14 @@ test('should add manual entry to database and store', (done) => {
     });
 });
 
+test('should setup setEntry object', () => {
+  const setup = setEntries(entries);
+  expect(setup).toEqual({
+    type: 'SET_ENTRIES',
+    entries
+  })
+});
+
 test('should add default entry to database+store', () => {
   const store = createMockStore({});
   const defaultEntryData = {
@@ -82,16 +100,14 @@ test('should add default entry to database+store', () => {
     });
 });
 
-// test('should setup add entry action object with default values', () => {
-//   const action = addEntry();
-//   expect(action).toEqual({
-//     type: 'ADD_ENTRY',
-//     entry: {
-//       id: expect.any(String),
-//       description: '',
-//       note: '',
-//       createdAt: 0,
-//       tag: 'task'
-//     }
-//   });
-// });
+test('should get entries from firebase database', (done) => {
+  const store = createMockStore({});
+  store.dispatch(startSetEntries()).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'SET_ENTRIES',
+      entries
+    });
+    done();
+  });
+});

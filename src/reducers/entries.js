@@ -22,6 +22,8 @@ export default (state = entriesReducerDefaultState, action) => {
           return entry;
         };
       });
+      case 'SET_ENTRIES':
+        return action.entries;
     default:
       return state;
   }
