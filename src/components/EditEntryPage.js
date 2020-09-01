@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import EntryForm from './EntryForm';
-import { editEntry, initRemoveEntry } from '../actions/entries';
+import { initEditEntry, initRemoveEntry } from '../actions/entries';
 
 export class EditEntryPage extends React.Component {
   
 
   onSubmit = (entry) => {
-    this.props.editEntry(this.props.entry.id, entry);
+    this.props.initEditEntry(this.props.entry.id, entry);
     this.props.history.push('/');
   };
 
@@ -36,7 +36,7 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
-  editEntry: (id, entry) => dispatch(editEntry(id, entry)),
+  initEditEntry: (id, entry) => dispatch(initEditEntry(id, entry)),
   initRemoveEntry: (data) => dispatch(initRemoveEntry(data))
 });
 

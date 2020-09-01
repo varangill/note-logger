@@ -47,6 +47,14 @@ export const editEntry = (id, updates) => ({
   updates
 });
 
+export const initEditEntry = (id, updates) => {
+  return (dispatch) => {
+    return database.ref(`entries/${id}`).update(updates).then(() => {
+      dispatch(editEntry(id, updates));
+    })
+  }
+};
+
 // SET_ENTRIES
 export const setEntries = (entries) => ({
   type: 'SET_ENTRIES',

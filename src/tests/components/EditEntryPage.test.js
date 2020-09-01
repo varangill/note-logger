@@ -3,15 +3,15 @@ import { shallow } from 'enzyme';
 import entries from '../fixtures/entries';
 import { EditEntryPage } from '../../components/EditEntryPage';
 
-let editEntry, initRemoveEntry, history, wrapper;
+let initEditEntry, initRemoveEntry, history, wrapper;
 
 beforeEach(() => {
-  editEntry = jest.fn();
+  initEditEntry = jest.fn();
   initRemoveEntry = jest.fn();
   history = { push: jest.fn() };
   wrapper = shallow(
     <EditEntryPage
-      editEntry={editEntry}
+      initEditEntry={initEditEntry}
       initRemoveEntry={initRemoveEntry}
       history={history}
       entry={entries[2]}
@@ -23,10 +23,10 @@ test('should render EditEntryPage', () => {
   expect(wrapper).toMatchSnapshot();
 });
 
-test('should handle editEntry', () => {
+test('should handle initEditEntry', () => {
   wrapper.find('EntryForm').prop('onSubmit')(entries[2]);
   expect(history.push).toHaveBeenLastCalledWith('/');
-  expect(editEntry).toHaveBeenLastCalledWith(entries[2].id, entries[2]);
+  expect(initEditEntry).toHaveBeenLastCalledWith(entries[2].id, entries[2]);
 });
 
 test('should handle initRemoveEntry', () => {

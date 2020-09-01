@@ -1,4 +1,4 @@
-import { addEntry, initAddEntry, startSetEntries, editEntry, removeEntry, setEntries, initRemoveEntry } from '../../actions/entries';
+import { addEntry, initAddEntry, startSetEntries, editEntry, initEditEntry, removeEntry, setEntries, initRemoveEntry } from '../../actions/entries';
 import entryData from '../fixtures/entries';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -48,6 +48,24 @@ test('should setup edit entry action object', () => {
     updates: {
       note: 'New note value'
     }
+  });
+});
+
+test('should edit entry in database', (done) => {
+  const store = createMockStore({});
+  const id = entries[0].id;
+  const updates = {description: 'changed'};
+  store.dispatch(initEditEntry(id, updates)).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'EDIT_ENTRY',
+      id,
+      updates
+    });
+    return database.ref(`entries/${id}`).once('value');
+  }).then((snapshot) => {
+    expect(snapshot.val().description).toBe(updates.description);
+    done();
   });
 });
 
