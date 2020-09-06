@@ -11,9 +11,11 @@ beforeEach((done) => { //generating test data arrays inside Firebase database
   entries.forEach(({id, description, note, tag, createdAt}) => {
     entriesData[id] = {description, note, tag, createdAt}
   });
-  database.ref('entries').set(entriesData).then(() => done());
+  database.ref(`users/${uid}/entries`).set(entriesData).then(() => done());
 });
 
+const uid = 'testUID';
+const defaultAuthState = { auth: {uid} };
 const createMockStore = configureMockStore([thunk]);
 
 test('should setup remove entry action object', () => {
@@ -25,7 +27,7 @@ test('should setup remove entry action object', () => {
 });
 
 test('should remove entry from firebase', (done) => {
-  const store = createMockStore({});
+  const store = createMockStore(defaultAuthState);
   const id = entries[2].id;
   store.dispatch(initRemoveEntry({ id })).then(() => {
     const actions = store.getActions();
@@ -33,7 +35,7 @@ test('should remove entry from firebase', (done) => {
       type: 'REMOVE_ENTRY',
       id
     });
-    return database.ref(`entries/${id}`).once('value');
+    return database.ref(`users/${uid}/entries/${id}`).once('value');
   }).then((snapshot) => {
     expect(snapshot.val()).toBeFalsy();
     done();
@@ -52,7 +54,7 @@ test('should setup edit entry action object', () => {
 });
 
 test('should edit entry in database', (done) => {
-  const store = createMockStore({});
+  const store = createMockStore(defaultAuthState);
   const id = entries[0].id;
   const updates = {description: 'changed'};
   store.dispatch(initEditEntry(id, updates)).then(() => {
@@ -62,7 +64,7 @@ test('should edit entry in database', (done) => {
       id,
       updates
     });
-    return database.ref(`entries/${id}`).once('value');
+    return database.ref(`users/${uid}/entries/${id}`).once('value');
   }).then((snapshot) => {
     expect(snapshot.val().description).toBe(updates.description);
     done();
@@ -79,7 +81,7 @@ test('should setup add entry action object with provided values', () => {
 
 
 test('should add manual entry to database and store', (done) => {
-  const store = createMockStore({});
+  const store = createMockStore(defaultAuthState);
   const entryData2 = {
     description: 'Mouse',
     tag: 'task',
@@ -95,7 +97,7 @@ test('should add manual entry to database and store', (done) => {
         ... entryData2
       }
     });
-    return database.ref(`entries/${actions[0].entry.id}`).once('value');
+    return database.ref(`users/${uid}/entries/${actions[0].entry.id}`).once('value');
   }).then((snapshot) => {
       expect(snapshot.val()).toEqual(entryData2);
       done();
@@ -111,7 +113,7 @@ test('should setup setEntry object', () => {
 });
 
 test('should add default entry to database+store', () => {
-  const store = createMockStore({});
+  const store = createMockStore(defaultAuthState);
   const defaultEntryData = {
     description: '',
     tag: 'task',
@@ -127,7 +129,7 @@ test('should add default entry to database+store', () => {
         ... defaultEntryData
       }
     });
-    return database.ref(`entries/${actions[0].entry.id}`).once('value');
+    return database.ref(`users/${uid}/entries/${actions[0].entry.id}`).once('value');
   }).then((snapshot) => {
       expect(snapshot.val()).toEqual(defaultEntryData);
       done();
@@ -135,7 +137,7 @@ test('should add default entry to database+store', () => {
 });
 
 test('should get entries from firebase database', (done) => {
-  const store = createMockStore({});
+  const store = createMockStore(defaultAuthState);
   store.dispatch(startSetEntries()).then(() => {
     const actions = store.getActions();
     expect(actions[0]).toEqual({

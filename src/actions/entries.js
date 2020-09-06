@@ -2,7 +2,8 @@ import uuid from 'uuid';
 import database from '../firebase/firebase.js';
 
 export const initAddEntry = (entryData = {}) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     const {
       description = '', //these are default values for if nothing is passed in
       note = '',
@@ -11,7 +12,7 @@ export const initAddEntry = (entryData = {}) => {
     } = entryData;
     const entryToAdd = {description, note, tag, createdAt}
 
-    return database.ref('entries').push(entryToAdd).then((ref) => {
+    return database.ref(`users/${uid}/entries`).push(entryToAdd).then((ref) => { 
       dispatch(addEntry({
         id: ref.key,
         ...entryToAdd
@@ -33,8 +34,9 @@ export const removeEntry = ({ id } = {}) => ({
 });
 
 export const initRemoveEntry = ({ id } = {}) => {
-  return (dispatch) => {
-    return database.ref(`entries/${id}`).remove().then(() => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/entries/${id}`).remove().then(() => {
       dispatch(removeEntry({id}));
     });
   };
@@ -48,8 +50,9 @@ export const editEntry = (id, updates) => ({
 });
 
 export const initEditEntry = (id, updates) => {
-  return (dispatch) => {
-    return database.ref(`entries/${id}`).update(updates).then(() => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/entries/${id}`).update(updates).then(() => {
       dispatch(editEntry(id, updates));
     })
   }
@@ -62,8 +65,9 @@ export const setEntries = (entries) => ({
 })
 
 export const startSetEntries = () => {
-  return (dispatch) => {
-    return database.ref('entries').once('value').then((snapshot) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/entries`).once('value').then((snapshot) => {
       const entries = [];
 
       snapshot.forEach((childSnapshot) => {
