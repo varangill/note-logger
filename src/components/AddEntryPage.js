@@ -12,10 +12,16 @@ export class AddEntryPage extends React.Component {
   render() {
     return (
       <div>
-        <h1>Add Entry</h1>
-        <EntryForm
-          onSubmit={this.onSubmit}
-        />
+        <div className="subheader">
+          <div className="content-container">
+            <h1 className="subheader__title">Add Entry</h1>
+          </div>
+        </div>
+        <div className="content-container">
+          <EntryForm
+            onSubmit={this.onSubmit}
+          />
+        </div>
       </div>
     );
   }

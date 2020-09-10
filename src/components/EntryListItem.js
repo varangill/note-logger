@@ -3,16 +3,13 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 const EntryListItem = ({ id, description, tag, createdAt }) => (
-  <div>
-    <Link to={`/edit/${id}`}>
-      <h3>{description}</h3>
-    </Link>
-    <p>
-      {moment(createdAt).format('MMM Do, YYYY')}
-      - 
-      {tag}
-    </p>
-  </div>
+  <Link className="list-entry" to={`/edit/${id}`}>
+    <div>
+      <h3 className="list-entry__desc">{description}</h3>
+      <span className="list-item__date">{moment(createdAt).format('MMM Do, YYYY')}</span>
+    </div>
+    <h4 className="list-item__tag">{tag}</h4>
+  </Link>
 );
 
 export default EntryListItem;

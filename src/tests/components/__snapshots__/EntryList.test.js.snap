@@ -1,38 +1,92 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render EntryList with empty message 1`] = `
-<div>
-  <p>
-    No Entries
-  </p>
+<div
+  className="content-container"
+>
+  <div
+    className="list-header"
+  >
+    <div
+      className="show-mobile"
+    >
+      Entries
+    </div>
+    <div
+      className="show-desktop"
+    >
+      Entry
+    </div>
+    <div
+      className="show-desktop"
+    >
+      Type
+    </div>
+  </div>
+  <div
+    className="list-main"
+  >
+    <div
+      className="list-item list-item--msg"
+    >
+      <span>
+        No Entries
+      </span>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`should render EntryList with entries 1`] = `
-<div>
-  <EntryListItem
-    createdAt={0}
-    description="Gum"
-    id="1"
-    key="1"
-    note=""
-    tag="task"
-  />
-  <EntryListItem
-    createdAt={-345600000}
-    description="Rent"
-    id="2"
-    key="2"
-    note=""
-    tag="task"
-  />
-  <EntryListItem
-    createdAt={345600000}
-    description="Credit Card"
-    id="3"
-    key="3"
-    note=""
-    tag="task"
-  />
+<div
+  className="content-container"
+>
+  <div
+    className="list-header"
+  >
+    <div
+      className="show-mobile"
+    >
+      Entries
+    </div>
+    <div
+      className="show-desktop"
+    >
+      Entry
+    </div>
+    <div
+      className="show-desktop"
+    >
+      Type
+    </div>
+  </div>
+  <div
+    className="list-main"
+  >
+    <EntryListItem
+      createdAt={0}
+      description="Gum"
+      id="1"
+      key="1"
+      note=""
+      tag="task"
+    />
+    <EntryListItem
+      createdAt={-345600000}
+      description="Rent"
+      id="2"
+      key="2"
+      note=""
+      tag="task"
+    />
+    <EntryListItem
+      createdAt={345600000}
+      description="Credit Card"
+      id="3"
+      key="3"
+      note=""
+      tag="task"
+    />
+  </div>
 </div>
 `;

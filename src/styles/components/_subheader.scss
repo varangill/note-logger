@@ -1,0 +1,18 @@
+.subheader {
+    //background: $light-blue;
+    padding: $s-size 0;
+    margin-bottom: $l-size;
+    //border-top: 0.35rem solid red;
+    height: 8rem;
+}
+
+.subheader__title {
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+}
+
+.subheader__actions {
+    margin-top: $m-size;
+    margin-bottom: $m-size;
+}

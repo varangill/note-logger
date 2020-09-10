@@ -2,22 +2,47 @@
 
 exports[`should render EditEntryPage 1`] = `
 <div>
-  <EntryForm
-    entry={
-      Object {
-        "createdAt": 345600000,
-        "description": "Credit Card",
-        "id": "3",
-        "note": "",
-        "tag": "task",
-      }
-    }
-    onSubmit={[Function]}
-  />
-  <button
-    onClick={[Function]}
+  <div
+    className="subheader"
   >
-    Remove
-  </button>
+    <div
+      className="content-container"
+    >
+      <h1
+        className="subheader__title"
+      >
+        Edit Entry
+      </h1>
+    </div>
+  </div>
+  <div
+    className="content-container"
+  >
+    <EntryForm
+      entry={
+        Object {
+          "createdAt": 345600000,
+          "description": "Credit Card",
+          "id": "3",
+          "note": "",
+          "tag": "task",
+        }
+      }
+      onSubmit={[Function]}
+    />
+    <button
+      className="button button--duplicate"
+      onClick={[Function]}
+    >
+      Duplicate
+    </button>
+    <br />
+    <button
+      className="button button--remove"
+      onClick={[Function]}
+    >
+      Remove
+    </button>
+  </div>
 </div>
 `;
