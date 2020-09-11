@@ -14,7 +14,7 @@ export const EntryList = (props) => (
     <div className="list-main">
       {
         props.entries.length === 0 ? (
-          <div className="list-item list-item--msg">
+          <div className="list-entry list-entry--msg">
             <span>No Entries</span>
           </div>
         ) : (
