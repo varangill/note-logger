@@ -2,4 +2,4 @@ An app designed to let users create various types of notes, including tasks and 
 
 Hosted at https://note-logger.herokuapp.com/
 
-Coded by Varandeep Gill
+Coded by Varan Gill
